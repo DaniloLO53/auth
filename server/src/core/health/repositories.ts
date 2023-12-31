@@ -1,4 +1,4 @@
-import db from "../../config/database";
+import db from "../database";
 import { HealthData } from "./interfaces";
 
 export async function createRepository({ data }: HealthData) {

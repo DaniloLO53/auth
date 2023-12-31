@@ -1,4 +1,4 @@
-import db from "../../config/database";
+import db from "../database";
 
 export async function insertOne(email: string) {
   return await db.query(
