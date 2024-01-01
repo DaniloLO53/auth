@@ -1,4 +1,4 @@
-import { ISignUp } from "../../authentication/auth/interfaces";
+import { ISignUp } from "../auth/interfaces";
 import { countByUsername, findByEmail, insertUser } from "./respositories";
 import argon2 from 'argon2';
 import slugify from 'slugify';
