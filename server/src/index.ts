@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { Server } from 'http';
 import cors from 'cors';
-import routeAuth from './auth/routes';
+import routeAdmins from './core/admins/routes';
 import { errorController } from './utils/errors';
 
 dotenv.config();
@@ -19,7 +19,7 @@ const initApi = () => {
   app.use(cors());
   app.use(express.json());
 
-  app.use(routeAuth);
+  app.use(routeAdmins);
 
   app.use(errorController);
 }

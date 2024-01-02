@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
 
-export default Joi.object({
+export const adminSignUp = Joi.object({
   username: Joi
     .string()
     .alphanum()
