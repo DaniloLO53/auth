@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { Server } from 'http';
 import cors from 'cors';
 import routeAuth from './auth/routes';
+import { errorController } from './utils/errors';
 
 dotenv.config();
 
@@ -19,6 +20,8 @@ const initApi = () => {
   app.use(express.json());
 
   app.use(routeAuth);
+
+  app.use(errorController);
 }
 
 export const listenApi = () => {

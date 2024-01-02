@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { customErrorBuilder, httpStatusCodes } from "../utils/errors";
 import schema from './schemas';
 
 export function validate(req: Request, res: Response, next: NextFunction) {
@@ -7,8 +8,12 @@ export function validate(req: Request, res: Response, next: NextFunction) {
   if (validation.error) {
     validation.error.details.map(({ message }) => {
       console.log(message);
-    })
-    next(validation.error)
+    });
+    throw customErrorBuilder({
+      message: 'Error on validation',
+      statusCode: httpStatusCodes.UNPROCESSABLE_ENTITY,
+      details: validation.error.details.map(({ message }) => message)
+    });
   } else {
     next();
   }
