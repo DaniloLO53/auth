@@ -2,10 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import { customErrorBuilder, httpStatusCodes } from '../../utils/errors';
 import Joi from 'joi';
 
-export function validateSchema(schema: Joi.ObjectSchema) {
-  return validate(schema);
-}
-
 export function validate(schema: Joi.ObjectSchema) {
   return function (req: Request, _: Response, next: NextFunction) {
     const validation = schema.validate(req.body, { abortEarly: false });

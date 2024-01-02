@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express';
 
 interface CustomError extends Error {
   statusCode: number;
@@ -14,9 +14,9 @@ interface CustomErrorDto {
 export const httpStatusCodes = {
   NOT_FOUND: 404,
   UNPROCESSABLE_ENTITY: 422,
-}
+};
 
-export function customErrorBuilder(customErrorDto : CustomErrorDto) {
+export function customErrorBuilder(customErrorDto: CustomErrorDto) {
   const { message, statusCode, details } = customErrorDto;
 
   const err = new Error(message) as CustomError;
@@ -29,11 +29,16 @@ export function customErrorBuilder(customErrorDto : CustomErrorDto) {
 export function errorController(
   error: CustomError,
   req: Request,
-  res: Response) {
+  res: Response,
+  next: NextFunction
+) {
+  if (!error) {
+    next();
+  } else {
     const { message, details, statusCode } = error;
-
     return res.status(statusCode).send({
       message,
-      details
+      details,
     });
+  }
 }
