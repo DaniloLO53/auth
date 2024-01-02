@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import { Server } from 'http';
 import cors from 'cors';
 import routerHealth from './core/health/routes';
-import routerAuth from './core/auth/routes';
+import routerAuth from './auth/routes';
 
 dotenv.config();
 

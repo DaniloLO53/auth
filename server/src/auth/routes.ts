@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { validateBody } from "../utils/validateMiddleware";
+import { validateBody } from "../core/utils/validateMiddleware";
 import { signUp } from "./controllers";
 import { signUpSchema } from "./schemas";
 
