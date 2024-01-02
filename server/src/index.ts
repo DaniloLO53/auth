@@ -2,8 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { Server } from 'http';
 import cors from 'cors';
-import routerHealth from './core/health/routes';
-import routerAuth from './auth/routes';
+import routeAuth from './auth/routes';
 
 dotenv.config();
 
@@ -19,8 +18,7 @@ const initApi = () => {
   app.use(cors());
   app.use(express.json());
 
-  app.use(routerHealth);
-  app.use(routerAuth);
+  app.use(routeAuth);
 }
 
 export const listenApi = () => {

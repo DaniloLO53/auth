@@ -1,13 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { create } from "./services";
 
-export async function signUp(request: Request, response: Response, next: NextFunction) {
+export async function signIn(req: Request, res: Response, next: NextFunction) {
+  const { body } = req;
+
   try {
-    const data = request.body;
-    const serviceResponse = await create(data);
-
-    return response.send(serviceResponse).status(201);
-  } catch(error) {
-    next(error);
+    return res.status(201).send(body);
+  } catch (err) {
+    next(err);
   }
 }
