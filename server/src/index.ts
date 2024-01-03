@@ -3,8 +3,10 @@ import dotenv from 'dotenv';
 import { Server } from 'http';
 import cors from 'cors';
 import routerAdmins from './core/admins/routes';
+import routerHealthAdmins from './core/health/admins';
 import { errorController } from './utils/errors';
 import { authenticate } from './middlewares/auth';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
@@ -19,10 +21,12 @@ export const validate = (port: number | string | undefined) => {
 const initApi = () => {
   app.use(cors());
   app.use(express.json());
+  app.use(cookieParser());
 
   app.use(authenticate);
 
   app.use('/admins', routerAdmins);
+  app.use('/health', routerHealthAdmins);
 
   app.use(errorController);
 }

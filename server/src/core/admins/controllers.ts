@@ -24,7 +24,8 @@ export async function signIn(req: Request, res: Response, next: NextFunction) {
         sameSite: 'strict'
       })
       .header('Authorization', accessToken)
-      .sendStatus(201);
+      .status(201)
+      .send({ refreshToken, accessToken });
   } catch (err) {
     next(err);
   }

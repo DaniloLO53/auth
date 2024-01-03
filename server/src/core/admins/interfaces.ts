@@ -11,5 +11,5 @@ export interface Credentials {
 }
 
 export interface DecodedAdmin {
-  admin: Omit<Admin, 'password'>
+  user: Omit<Admin, 'password'> & { is_admin: boolean };
 }
