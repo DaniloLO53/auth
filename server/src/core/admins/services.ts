@@ -1,13 +1,36 @@
 import { comparePasswords } from "../../utils/comparePasswords";
 import { customErrorBuilder, httpStatusCodes } from "../../utils/errors";
 import { generateJwt } from "../../utils/generateJwt";
-import { Admin, Credentials } from "./interfaces";
+import { Admin, Credentials, DecodedAdmin } from "./interfaces";
 import { getAdminByEmail } from "./repositories";
+import jwt from 'jsonwebtoken';
 
 export async function createAdmin(user: Admin) {
   return user;
 }
 
+
+export function generateAccessTokenByRefreshToken(token: string) {
+  if (!token) {
+    throw customErrorBuilder({
+      message: 'Access Denied. No refresh token provided.',
+      statusCode: httpStatusCodes.UNAUTHORIZED
+    })
+  }
+
+  const jwtAccessKey = process.env.JWT_ACCESS_SECRET;
+  const accessExpiresIn = process.env.JWT_ACCESS_TIME;
+  const jwtRefreshKey = process.env.JWT_REFRESH_SECRET;
+
+  const decoded = jwt.verify(token, jwtRefreshKey) as DecodedAdmin;
+  const accessToken = jwt.sign(
+    { user: decoded.admin },
+    jwtAccessKey,
+    { expiresIn: accessExpiresIn }
+  );
+
+  return accessToken;
+}
 
 
 export async function loginAdmin(credentials: Credentials) {
