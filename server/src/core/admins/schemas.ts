@@ -24,3 +24,17 @@ export const adminSignUp = Joi.object({
     .boolean()
     .required()
 });
+
+export const adminSignIn = Joi.object({
+  email: Joi
+    .string()
+    .email({
+      minDomainSegments: 2,
+      tlds: { allow: ['com', 'net'] }
+    })
+    .required(),
+  password: Joi
+    .string()
+    .pattern(new RegExp(passwordPattern))
+    .required(),
+});

@@ -1,15 +1,18 @@
 import { Router } from "express";
-import { authenticate } from "../../auth/jwt";
-import { signUp } from "./controllers";
-import { validate } from "./middlewares";
-import { adminSignUp } from "./schemas";
+import { validate } from "../../middlewares/validateSchema";
+import { signUp, signIn } from "./controllers";
+import { adminSignUp, adminSignIn } from "./schemas";
 
 const router = Router();
 
 router.post('/sign-up',
-  // authenticate,
   validate(adminSignUp),
   signUp
+);
+
+router.post('/sign-in',
+  validate(adminSignIn),
+  signIn
 );
 
 export default router;

@@ -12,6 +12,7 @@ interface CustomErrorDto {
 }
 
 export const httpStatusCodes = {
+  UNAUTHORIZED: 401,
   NOT_FOUND: 404,
   UNPROCESSABLE_ENTITY: 422,
 };
@@ -36,7 +37,7 @@ export function errorController(
     next();
   } else {
     const { message, details, statusCode } = error;
-    return res.status(statusCode).send({
+    return res.status(statusCode || 500).send({
       message,
       details,
     });

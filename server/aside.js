@@ -13,7 +13,7 @@ const signup = async (username, password) => {
 };
 
 const saltAndHash = (password) => {
-	const salt = randomBytes(4).toString('hex');
+	const salt = randomBytes(16).toString('hex');
 
 	return new Promise((resolve, reject) => {
 		scrypt(password, salt, 32, (err, key) => {

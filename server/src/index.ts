@@ -4,7 +4,7 @@ import { Server } from 'http';
 import cors from 'cors';
 import routerAdmins from './core/admins/routes';
 import { errorController } from './utils/errors';
-import { authenticate } from './auth/jwt';
+import { authenticate } from './middlewares/auth';
 
 dotenv.config();
 
@@ -21,6 +21,7 @@ const initApi = () => {
   app.use(express.json());
 
   app.use(authenticate);
+
   app.use('/admins', routerAdmins);
 
   app.use(errorController);

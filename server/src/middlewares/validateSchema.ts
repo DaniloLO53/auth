@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { customErrorBuilder, httpStatusCodes } from '../../utils/errors';
+import { customErrorBuilder, httpStatusCodes } from '../utils/errors';
 import Joi from 'joi';
 
 export function validate(schema: Joi.ObjectSchema) {
