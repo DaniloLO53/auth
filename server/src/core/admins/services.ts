@@ -6,6 +6,17 @@ import { getAdminByEmail } from './repositories';
 import jwt from 'jsonwebtoken';
 
 export async function createAdmin(user: Admin) {
+  const {
+    rows: [admin],
+    rowCount,
+  } = await getAdminByEmail(user.email);
+
+  if (rowCount === 0) {
+    throw customErrorBuilder({
+      message: 'Incorrect credentials',
+      statusCode: httpStatusCodes.UNAUTHORIZED,
+    });
+  }
   return user;
 }
 

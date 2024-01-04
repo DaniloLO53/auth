@@ -18,9 +18,13 @@ function authenticateByRefreshToken(
 ) {
   try {
     const decoded = jwt.verify(refreshToken, jwtRefreshKey) as DecodedAdmin;
-    const accessToken = jwt.sign({ user: { ...decoded.user, is_admin: true } }, jwtAccessKey, {
-      expiresIn: accessExpiresIn,
-    });
+    const accessToken = jwt.sign(
+      { user: { ...decoded.user, is_admin: true } },
+      jwtAccessKey,
+      {
+        expiresIn: accessExpiresIn,
+      }
+    );
 
     return res
       .cookie('refreshToken', refreshToken, {
@@ -28,7 +32,11 @@ function authenticateByRefreshToken(
         sameSite: 'strict',
       })
       .header('Authorization', accessToken)
-      .send({ payload: { user: { ...decoded.user, is_admin: true } }, accessToken, refreshToken });
+      .send({
+        payload: { user: { ...decoded.user, is_admin: true } },
+        accessToken,
+        refreshToken,
+      });
   } catch (err) {
     next(err);
   }

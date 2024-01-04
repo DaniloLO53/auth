@@ -1,29 +1,21 @@
-// import { randomBytes, scrypt } from 'crypto';
-const {randomBytes, scrypt } = require('crypto');
+let x = 5;
 
-const signup = async (username, password) => {
-	const [hashed, salt] = await saltAndHash(password);
+function main() {
+  let x = 10;
+  x = first(x);
+  console.log(x);
+}
 
-  console.log(`${hashed}.${salt}`)
+function first(y) {
+  y += 10;
+  y = second(y);
+  return y;
+}
 
-	return {
-		username,
-		password: `${hashed}.${salt}`
-	};
-};
+function second(y) {
+  let z;
+  z = x + y;
+  return z;
+}
 
-const saltAndHash = (password) => {
-	const salt = randomBytes(16).toString('hex');
-
-	return new Promise((resolve, reject) => {
-		scrypt(password, salt, 32, (err, key) => {
-			if (err) {
-				reject(err);
-			}
-
-			resolve([key.toString('hex'), salt]);
-		});
-	});
-};
-
-signup('dan', 'Aa123123*')
+main(); 
